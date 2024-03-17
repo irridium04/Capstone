@@ -1,0 +1,1022 @@
+[
+  {
+    "Name": "Almond Milk",
+    "Category": "Refrigerated",
+    "Shelf Life": 10
+  },
+  {
+    "Name": "Apples",
+    "Category": "Produce",
+    "Shelf Life": 50
+  },
+  {
+    "Name": "Artichokes",
+    "Category": "Produce",
+    "Shelf Life": 7
+  },
+  {
+    "Name": "Asparagus",
+    "Category": "Produce",
+    "Shelf Life": 14
+  },
+  {
+    "Name": "Avocados",
+    "Category": "Produce",
+    "Shelf Life": 14
+  },
+  {
+    "Name": "Bacon (Frozen)",
+    "Category": "Meat",
+    "Shelf Life": 240
+  },
+  {
+    "Name": "Bacon (Thawed)",
+    "Category": "Meat",
+    "Shelf Life": 7
+  },
+  {
+    "Name": "Bagels",
+    "Category": "Pantry",
+    "Shelf Life": 4
+  },
+  {
+    "Name": "Bagels (Frozen)",
+    "Category": "Frozen",
+    "Shelf Life": 90
+  },
+  {
+    "Name": "Baking Powder",
+    "Category": "Baking",
+    "Shelf Life": 0
+  },
+  {
+    "Name": "Baking Soda",
+    "Category": "Baking",
+    "Shelf Life": 0
+  },
+  {
+    "Name": "Bananas",
+    "Category": "Produce",
+    "Shelf Life": 3
+  },
+  {
+    "Name": "Barbeque Sauce",
+    "Category": "Pantry",
+    "Shelf Life": 0
+  },
+  {
+    "Name": "Barbeque Sauce (Refrigerated)",
+    "Category": "Refrigerated",
+    "Shelf Life": 0
+  },
+  {
+    "Name": "Beer",
+    "Category": "Pantry",
+    "Shelf Life": 0
+  },
+  {
+    "Name": "Beets",
+    "Category": "Produce",
+    "Shelf Life": 7
+  },
+  {
+    "Name": "Bell Peppers",
+    "Category": "Produce",
+    "Shelf Life": 10
+  },
+  {
+    "Name": "Bison (Frozen)",
+    "Category": "Meat",
+    "Shelf Life": 180
+  },
+  {
+    "Name": "Bison (Thawed)",
+    "Category": "Meat",
+    "Shelf Life": 4
+  },
+  {
+    "Name": "Blackberries",
+    "Category": "Produce",
+    "Shelf Life": 3
+  },
+  {
+    "Name": "Blueberies",
+    "Category": "Produce",
+    "Shelf Life": 14
+  },
+  {
+    "Name": "Bread",
+    "Category": "Pantry",
+    "Shelf Life": 4
+  },
+  {
+    "Name": "Bread (Frozen)",
+    "Category": "Frozen",
+    "Shelf Life": 90
+  },
+  {
+    "Name": "Bread (Refrigerated)",
+    "Category": "Refrigerated",
+    "Shelf Life": 28
+  },
+  {
+    "Name": "Broccoli",
+    "Category": "Produce",
+    "Shelf Life": 14
+  },
+  {
+    "Name": "Broth",
+    "Category": "Pantry",
+    "Shelf Life": 0
+  },
+  {
+    "Name": "Brown Sugar",
+    "Category": "Baking",
+    "Shelf Life": 0
+  },
+  {
+    "Name": "Brussels sprouts",
+    "Category": "Produce",
+    "Shelf Life": 7
+  },
+  {
+    "Name": "Burgers (Frozen)",
+    "Category": "Meat",
+    "Shelf Life": 90
+  },
+  {
+    "Name": "Burgers (Thawed)",
+    "Category": "Meat",
+    "Shelf Life": 3
+  },
+  {
+    "Name": "Butter (Frozen)",
+    "Category": "Frozen",
+    "Shelf Life": 180
+  },
+  {
+    "Name": "Butter (Refrigerated)",
+    "Category": "Refrigerated",
+    "Shelf Life": 45
+  },
+  {
+    "Name": "Buttermilk",
+    "Category": "Refrigerated",
+    "Shelf Life": 14
+  },
+  {
+    "Name": "Cabbage",
+    "Category": "Produce",
+    "Shelf Life": 14
+  },
+  {
+    "Name": "Cake (Frozen)",
+    "Category": "Frozen",
+    "Shelf Life": 30
+  },
+  {
+    "Name": "Cake (Refrigerated)",
+    "Category": "Refrigerated",
+    "Shelf Life": 7
+  },
+  {
+    "Name": "Candy",
+    "Category": "Pantry",
+    "Shelf Life": 0
+  },
+  {
+    "Name": "Canned Beans",
+    "Category": "Pantry",
+    "Shelf Life": 0
+  },
+  {
+    "Name": "Canned Fruit",
+    "Category": "Pantry",
+    "Shelf Life": 0
+  },
+  {
+    "Name": "Canned Meat",
+    "Category": "Meat",
+    "Shelf Life": 0
+  },
+  {
+    "Name": "Canned Soup",
+    "Category": "Pantry",
+    "Shelf Life": 0
+  },
+  {
+    "Name": "Canned Tuna",
+    "Category": "Meat",
+    "Shelf Life": 0
+  },
+  {
+    "Name": "Canned Vegetables",
+    "Category": "Pantry",
+    "Shelf Life": 0
+  },
+  {
+    "Name": "Cantaloupe (Sliced)",
+    "Category": "Produce",
+    "Shelf Life": 5
+  },
+  {
+    "Name": "Cantaloupe (Whole)",
+    "Category": "Produce",
+    "Shelf Life": 21
+  },
+  {
+    "Name": "Carrots",
+    "Category": "Produce",
+    "Shelf Life": 21
+  },
+  {
+    "Name": "Cauliflower",
+    "Category": "Produce",
+    "Shelf Life": 4
+  },
+  {
+    "Name": "Cayenne",
+    "Category": "Herbs / Spices",
+    "Shelf Life": 0
+  },
+  {
+    "Name": "Celery (Cut)",
+    "Category": "Produce",
+    "Shelf Life": 14
+  },
+  {
+    "Name": "Celery (Whole)",
+    "Category": "Produce",
+    "Shelf Life": 30
+  },
+  {
+    "Name": "Cereal",
+    "Category": "Pantry",
+    "Shelf Life": 0
+  },
+  {
+    "Name": "Cheese",
+    "Category": "Refrigerated",
+    "Shelf Life": 21
+  },
+  {
+    "Name": "Chicken (Frozen)",
+    "Category": "Meat",
+    "Shelf Life": 365
+  },
+  {
+    "Name": "Chicken (Thawed)",
+    "Category": "Meat",
+    "Shelf Life": 2
+  },
+  {
+    "Name": "Chicken Nuggets",
+    "Category": "Frozen",
+    "Shelf Life": 0
+  },
+  {
+    "Name": "Chili Powder",
+    "Category": "Herbs / Spices",
+    "Shelf Life": 0
+  },
+  {
+    "Name": "Chips",
+    "Category": "Pantry",
+    "Shelf Life": 0
+  },
+  {
+    "Name": "Chocolate Chips",
+    "Category": "Baking",
+    "Shelf Life": 0
+  },
+  {
+    "Name": "Chocolate Syrup",
+    "Category": "Pantry",
+    "Shelf Life": 0
+  },
+  {
+    "Name": "Cinnamon",
+    "Category": "Herbs / Spices",
+    "Shelf Life": 0
+  },
+  {
+    "Name": "Cloves",
+    "Category": "Herbs / Spices",
+    "Shelf Life": 0
+  },
+  {
+    "Name": "Cocoa Powder",
+    "Category": "Baking",
+    "Shelf Life": 0
+  },
+  {
+    "Name": "Coffee Creamer",
+    "Category": "Refrigerated",
+    "Shelf Life": 7
+  },
+  {
+    "Name": "Coffee Grounds",
+    "Category": "Pantry",
+    "Shelf Life": 0
+  },
+  {
+    "Name": "Cookies",
+    "Category": "Pantry",
+    "Shelf Life": 14
+  },
+  {
+    "Name": "Cooking Oil",
+    "Category": "Baking",
+    "Shelf Life": 0
+  },
+  {
+    "Name": "Corn",
+    "Category": "Produce",
+    "Shelf Life": 2
+  },
+  {
+    "Name": "Cornbread",
+    "Category": "Pantry",
+    "Shelf Life": 0
+  },
+  {
+    "Name": "Cornstarch",
+    "Category": "Baking",
+    "Shelf Life": 0
+  },
+  {
+    "Name": "Crackers",
+    "Category": "Pantry",
+    "Shelf Life": 0
+  },
+  {
+    "Name": "Cream Cheese",
+    "Category": "Refrigerated",
+    "Shelf Life": 10
+  },
+  {
+    "Name": "Cream of Tartar",
+    "Category": "Herbs / Spices",
+    "Shelf Life": 0
+  },
+  {
+    "Name": "Cucumber (Sliced)",
+    "Category": "Produce",
+    "Shelf Life": 3
+  },
+  {
+    "Name": "Cucumber (Whole)",
+    "Category": "Produce",
+    "Shelf Life": 14
+  },
+  {
+    "Name": "Curry Powder",
+    "Category": "Herbs / Spices",
+    "Shelf Life": 0
+  },
+  {
+    "Name": "Dates",
+    "Category": "Produce",
+    "Shelf Life": 180
+  },
+  {
+    "Name": "Dill Seed",
+    "Category": "Herbs / Spices",
+    "Shelf Life": 0
+  },
+  {
+    "Name": "Dried Fruit",
+    "Category": "Pantry",
+    "Shelf Life": 0
+  },
+  {
+    "Name": "Dry milk",
+    "Category": "Pantry",
+    "Shelf Life": 0
+  },
+  {
+    "Name": "Eggplants",
+    "Category": "Produce",
+    "Shelf Life": 5
+  },
+  {
+    "Name": "Eggs",
+    "Category": "Refrigerated",
+    "Shelf Life": 28
+  },
+  {
+    "Name": "Figs",
+    "Category": "Produce",
+    "Shelf Life": 3
+  },
+  {
+    "Name": "Flour",
+    "Category": "Baking",
+    "Shelf Life": 0
+  },
+  {
+    "Name": "Frozen Burritos",
+    "Category": "Frozen",
+    "Shelf Life": 0
+  },
+  {
+    "Name": "Frozen Fruit",
+    "Category": "Frozen",
+    "Shelf Life": 0
+  },
+  {
+    "Name": "Frozen Meals",
+    "Category": "Frozen",
+    "Shelf Life": 0
+  },
+  {
+    "Name": "Frozen Pizza",
+    "Category": "Frozen",
+    "Shelf Life": 0
+  },
+  {
+    "Name": "Frozen Taquitos",
+    "Category": "Frozen",
+    "Shelf Life": 0
+  },
+  {
+    "Name": "Frozen Vegetables",
+    "Category": "Frozen",
+    "Shelf Life": 0
+  },
+  {
+    "Name": "Fruit Snacks",
+    "Category": "Pantry",
+    "Shelf Life": 0
+  },
+  {
+    "Name": "Garlic (Peeled)",
+    "Category": "Produce",
+    "Shelf Life": 7
+  },
+  {
+    "Name": "Garlic (Unpeeled)",
+    "Category": "Produce",
+    "Shelf Life": 180
+  },
+  {
+    "Name": "Garlic Salt",
+    "Category": "Herbs / Spices",
+    "Shelf Life": 0
+  },
+  {
+    "Name": "Ginger",
+    "Category": "Herbs / Spices",
+    "Shelf Life": 0
+  },
+  {
+    "Name": "Granulated Sugar",
+    "Category": "Baking",
+    "Shelf Life": 0
+  },
+  {
+    "Name": "Grapes (Frozen)",
+    "Category": "Produce",
+    "Shelf Life": 365
+  },
+  {
+    "Name": "Grapes (Refrigerated)",
+    "Category": "Produce",
+    "Shelf Life": 14
+  },
+  {
+    "Name": "Green Onions",
+    "Category": "Produce",
+    "Shelf Life": 21
+  },
+  {
+    "Name": "Ground Beef (Frozen)",
+    "Category": "Meat",
+    "Shelf Life": 120
+  },
+  {
+    "Name": "Ground Beef (Thawed)",
+    "Category": "Meat",
+    "Shelf Life": 2
+  },
+  {
+    "Name": "Ground Cumin",
+    "Category": "Herbs / Spices",
+    "Shelf Life": 0
+  },
+  {
+    "Name": "Habaneros",
+    "Category": "Produce",
+    "Shelf Life": 7
+  },
+  {
+    "Name": "Half and Half",
+    "Category": "Refrigerated",
+    "Shelf Life": 7
+  },
+  {
+    "Name": "Hamburger Buns",
+    "Category": "Pantry",
+    "Shelf Life": 7
+  },
+  {
+    "Name": "Hamburger Buns (Frozen)",
+    "Category": "Frozen",
+    "Shelf Life": 90
+  },
+  {
+    "Name": "Heavy Cream",
+    "Category": "Refrigerated",
+    "Shelf Life": 30
+  },
+  {
+    "Name": "Hotdog Buns",
+    "Category": "Pantry",
+    "Shelf Life": 7
+  },
+  {
+    "Name": "Hotdog Buns (Frozen)",
+    "Category": "Frozen",
+    "Shelf Life": 90
+  },
+  {
+    "Name": "Hotdogs (Frozen)",
+    "Category": "Meat",
+    "Shelf Life": 45
+  },
+  {
+    "Name": "Hotdogs (Thawed)",
+    "Category": "Meat",
+    "Shelf Life": 7
+  },
+  {
+    "Name": "Ice Cream",
+    "Category": "Frozen",
+    "Shelf Life": 60
+  },
+  {
+    "Name": "Imitation Crab",
+    "Category": "Meat",
+    "Shelf Life": 3
+  },
+  {
+    "Name": "Jalapenos",
+    "Category": "Produce",
+    "Shelf Life": 7
+  },
+  {
+    "Name": "Jam",
+    "Category": "Refrigerated",
+    "Shelf Life": 0
+  },
+  {
+    "Name": "Jerky",
+    "Category": "Pantry",
+    "Shelf Life": 0
+  },
+  {
+    "Name": "Juice",
+    "Category": "Refrigerated",
+    "Shelf Life": 0
+  },
+  {
+    "Name": "Kale",
+    "Category": "Produce",
+    "Shelf Life": 5
+  },
+  {
+    "Name": "Ketchup",
+    "Category": "Pantry",
+    "Shelf Life": 0
+  },
+  {
+    "Name": "Kiwis",
+    "Category": "Produce",
+    "Shelf Life": 5
+  },
+  {
+    "Name": "Leftovers",
+    "Category": "Refrigerated",
+    "Shelf Life": 3
+  },
+  {
+    "Name": "Lemons (Sliced)",
+    "Category": "Produce",
+    "Shelf Life": 6
+  },
+  {
+    "Name": "Lemons (Whole)",
+    "Category": "Produce",
+    "Shelf Life": 30
+  },
+  {
+    "Name": "Lettuce",
+    "Category": "Produce",
+    "Shelf Life": 7
+  },
+  {
+    "Name": "Limes",
+    "Category": "Produce",
+    "Shelf Life": 21
+  },
+  {
+    "Name": "Liquor",
+    "Category": "Pantry",
+    "Shelf Life": 180
+  },
+  {
+    "Name": "Mangoes",
+    "Category": "Produce",
+    "Shelf Life": 7
+  },
+  {
+    "Name": "Mayonnaise",
+    "Category": "Pantry",
+    "Shelf Life": 0
+  },
+  {
+    "Name": "Milk",
+    "Category": "Refrigerated",
+    "Shelf Life": 7
+  },
+  {
+    "Name": "Minced Garlic",
+    "Category": "Herbs / Spices",
+    "Shelf Life": 0
+  },
+  {
+    "Name": "Mushrooms (Sliced)",
+    "Category": "Produce",
+    "Shelf Life": 2
+  },
+  {
+    "Name": "Mushrooms (Whole)",
+    "Category": "Produce",
+    "Shelf Life": 4
+  },
+  {
+    "Name": "Mustard",
+    "Category": "Pantry",
+    "Shelf Life": 0
+  },
+  {
+    "Name": "Nuts",
+    "Category": "Pantry",
+    "Shelf Life": 0
+  },
+  {
+    "Name": "Oat Milk",
+    "Category": "Refrigerated",
+    "Shelf Life": 7
+  },
+  {
+    "Name": "Oatmeal",
+    "Category": "Pantry",
+    "Shelf Life": 0
+  },
+  {
+    "Name": "Oats",
+    "Category": "Pantry",
+    "Shelf Life": 0
+  },
+  {
+    "Name": "Onion powder",
+    "Category": "Herbs / Spices",
+    "Shelf Life": 0
+  },
+  {
+    "Name": "Onions",
+    "Category": "Produce",
+    "Shelf Life": 30
+  },
+  {
+    "Name": "Oranges",
+    "Category": "Produce",
+    "Shelf Life": 14
+  },
+  {
+    "Name": "Pancake Mix",
+    "Category": "Pantry",
+    "Shelf Life": 0
+  },
+  {
+    "Name": "Paprika",
+    "Category": "Herbs / Spices",
+    "Shelf Life": 0
+  },
+  {
+    "Name": "Parsley",
+    "Category": "Herbs / Spices",
+    "Shelf Life": 0
+  },
+  {
+    "Name": "Pasta",
+    "Category": "Pantry",
+    "Shelf Life": 0
+  },
+  {
+    "Name": "Peanut Butter",
+    "Category": "Pantry",
+    "Shelf Life": 0
+  },
+  {
+    "Name": "Pepper",
+    "Category": "Baking",
+    "Shelf Life": 0
+  },
+  {
+    "Name": "Pineapples (Sliced)",
+    "Category": "Produce",
+    "Shelf Life": 5
+  },
+  {
+    "Name": "Pineapples (Uncut, Refrigerated)",
+    "Category": "Produce",
+    "Shelf Life": 6
+  },
+  {
+    "Name": "Pineapples (Uncut)",
+    "Category": "Produce",
+    "Shelf Life": 3
+  },
+  {
+    "Name": "Pizza Rolls",
+    "Category": "Frozen",
+    "Shelf Life": 0
+  },
+  {
+    "Name": "Plums",
+    "Category": "Produce",
+    "Shelf Life": 14
+  },
+  {
+    "Name": "Popcorn",
+    "Category": "Pantry",
+    "Shelf Life": 0
+  },
+  {
+    "Name": "Poppy",
+    "Category": "Herbs / Spices",
+    "Shelf Life": 0
+  },
+  {
+    "Name": "Pork (Frozen)",
+    "Category": "Meat",
+    "Shelf Life": 365
+  },
+  {
+    "Name": "Pork (Thawed)",
+    "Category": "Meat",
+    "Shelf Life": 3
+  },
+  {
+    "Name": "Potatoes",
+    "Category": "Produce",
+    "Shelf Life": 10
+  },
+  {
+    "Name": "Powdered Sugar",
+    "Category": "Baking",
+    "Shelf Life": 0
+  },
+  {
+    "Name": "Pudding",
+    "Category": "Pantry",
+    "Shelf Life": 0
+  },
+  {
+    "Name": "Radishes",
+    "Category": "Produce",
+    "Shelf Life": 7
+  },
+  {
+    "Name": "Ranch",
+    "Category": "Pantry",
+    "Shelf Life": 0
+  },
+  {
+    "Name": "Raspberries",
+    "Category": "Produce",
+    "Shelf Life": 2
+  },
+  {
+    "Name": "Red Pepper Flakes",
+    "Category": "Herbs / Spices",
+    "Shelf Life": 0
+  },
+  {
+    "Name": "Rice",
+    "Category": "Pantry",
+    "Shelf Life": 0
+  },
+  {
+    "Name": "Rosemary",
+    "Category": "Herbs / Spices",
+    "Shelf Life": 0
+  },
+  {
+    "Name": "Saffron",
+    "Category": "Herbs / Spices",
+    "Shelf Life": 0
+  },
+  {
+    "Name": "Salad Dressing",
+    "Category": "Pantry",
+    "Shelf Life": 0
+  },
+  {
+    "Name": "Salmon (Frozen)",
+    "Category": "Meat",
+    "Shelf Life": 90
+  },
+  {
+    "Name": "Salmon (Thawed)",
+    "Category": "Meat",
+    "Shelf Life": 2
+  },
+  {
+    "Name": "Salsa",
+    "Category": "Pantry",
+    "Shelf Life": 0
+  },
+  {
+    "Name": "Salt",
+    "Category": "Baking",
+    "Shelf Life": 0
+  },
+  {
+    "Name": "Shredded Cheese",
+    "Category": "Refrigerated",
+    "Shelf Life": 30
+  },
+  {
+    "Name": "Shrimp (Frozen)",
+    "Category": "Meat",
+    "Shelf Life": 180
+  },
+  {
+    "Name": "Shrimp (Thawed)",
+    "Category": "Meat",
+    "Shelf Life": 2
+  },
+  {
+    "Name": "Soft Drinks",
+    "Category": "Pantry",
+    "Shelf Life": 0
+  },
+  {
+    "Name": "Sour Cream",
+    "Category": "Refrigerated",
+    "Shelf Life": 21
+  },
+  {
+    "Name": "Soy Milk",
+    "Category": "Refrigerated",
+    "Shelf Life": 7
+  },
+  {
+    "Name": "Soy Sauce",
+    "Category": "Pantry",
+    "Shelf Life": 0
+  },
+  {
+    "Name": "Soybeans",
+    "Category": "Produce",
+    "Shelf Life": 180
+  },
+  {
+    "Name": "Spinach",
+    "Category": "Produce",
+    "Shelf Life": 10
+  },
+  {
+    "Name": "Squash",
+    "Category": "Produce",
+    "Shelf Life": 90
+  },
+  {
+    "Name": "Steak (Frozen)",
+    "Category": "Meat",
+    "Shelf Life": 365
+  },
+  {
+    "Name": "Steak (Thawed)",
+    "Category": "Meat",
+    "Shelf Life": 3
+  },
+  {
+    "Name": "Strawberries",
+    "Category": "Produce",
+    "Shelf Life": 7
+  },
+  {
+    "Name": "Strawberry Syrup",
+    "Category": "Pantry",
+    "Shelf Life": 0
+  },
+  {
+    "Name": "Sweet Potatoes",
+    "Category": "Produce",
+    "Shelf Life": 30
+  },
+  {
+    "Name": "Thyme",
+    "Category": "Herbs / Spices",
+    "Shelf Life": 0
+  },
+  {
+    "Name": "Tilapia (Frozen)",
+    "Category": "Meat",
+    "Shelf Life": 365
+  },
+  {
+    "Name": "Tilapia (Thawed)",
+    "Category": "Meat",
+    "Shelf Life": 2
+  },
+  {
+    "Name": "Tomatillos",
+    "Category": "Produce",
+    "Shelf Life": 14
+  },
+  {
+    "Name": "Tomatoes",
+    "Category": "Produce",
+    "Shelf Life": 5
+  },
+  {
+    "Name": "Tortillas",
+    "Category": "Pantry",
+    "Shelf Life": 28
+  },
+  {
+    "Name": "Turmeric",
+    "Category": "Herbs / Spices",
+    "Shelf Life": 0
+  },
+  {
+    "Name": "Turnips (Frozen)",
+    "Category": "Produce",
+    "Shelf Life": 240
+  },
+  {
+    "Name": "Turnips (Refrigerated)",
+    "Category": "Produce",
+    "Shelf Life": 14
+  },
+  {
+    "Name": "Vanilla Extract",
+    "Category": "Baking",
+    "Shelf Life": 0
+  },
+  {
+    "Name": "Vegetable Shortening",
+    "Category": "Baking",
+    "Shelf Life": 0
+  },
+  {
+    "Name": "Venison (Frozen)",
+    "Category": "Meat",
+    "Shelf Life": 365
+  },
+  {
+    "Name": "Venison (Thawed)",
+    "Category": "Meat",
+    "Shelf Life": 3
+  },
+  {
+    "Name": "Watermelon",
+    "Category": "Produce",
+    "Shelf Life": 21
+  },
+  {
+    "Name": "White Pepper",
+    "Category": "Herbs / Spices",
+    "Shelf Life": 0
+  },
+  {
+    "Name": "Wine",
+    "Category": "Pantry",
+    "Shelf Life": 0
+  },
+  {
+    "Name": "Wonton Wrappers",
+    "Category": "Refrigerated",
+    "Shelf Life": 60
+  },
+  {
+    "Name": "Yams",
+    "Category": "Produce",
+    "Shelf Life": 30
+  },
+  {
+    "Name": "Yeast",
+    "Category": "Baking",
+    "Shelf Life": 0
+  },
+  {
+    "Name": "Yogurt",
+    "Category": "Refrigerated",
+    "Shelf Life": 14
+  }
+]
