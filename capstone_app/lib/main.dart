@@ -2,8 +2,10 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
-
+// import other dart files
 import 'database_manager.dart';
+import 'item.dart';
+import 'inventoryItem.dart';
 
 void main()
 {
@@ -50,15 +52,20 @@ class _MyHomePageState extends State<MyHomePage>
     initializeDatabase();
   }
 
+
+
+
   initializeDatabase() async
   {
     await dbm.dbSetup(); // Await the asynchronous method
-    insertRandomData(25);
-    dbm.showData();
 
-    dbm.clearTable();
+    dbm.showCategory("Produce");
+
+
+
   }
 
+  /*
   // function to populate test data into db
   insertRandomData(int amountToInsert)
   {
@@ -66,7 +73,7 @@ class _MyHomePageState extends State<MyHomePage>
     {
       Random RNG = Random();
 
-      dbm.insertItemIntoDB(
+      InventoryItem item = InventoryItem(
           "test$i",
           "testCategory$i",
           DateTime.now(),
@@ -76,8 +83,15 @@ class _MyHomePageState extends State<MyHomePage>
               )
           )
       );
+
+      dbm.insertIntoInventoryTable(item);
+
+
+
     }
   }
+  */
+
 
   @override
   Widget build(BuildContext context)
@@ -90,8 +104,8 @@ class _MyHomePageState extends State<MyHomePage>
         body: ListView(
           children: const [
             Text("test")
-          ],
-        ) // This trailing comma makes auto-formatting nicer for build methods.
+          ]
+        )
     );
   }
 

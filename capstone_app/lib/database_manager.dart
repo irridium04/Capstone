@@ -1,8 +1,12 @@
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 import 'dart:io';
+import 'dart:convert';
+import 'package:flutter/services.dart' show rootBundle;
 
 
+import 'item.dart';
+import 'inventoryItem.dart';
 
 class DatabaseManager
 {
@@ -32,10 +36,13 @@ class DatabaseManager
       version: 1,
       onCreate: (db, version) async
       {
-        await createItemTable(db);
-      },
-
+        await createInventoryTable(db);
+        await createItemsListTable(db);
+        await addJSONIntoItemsList(db);
+      }
     );
+
+
   }
 
 
@@ -54,12 +61,12 @@ class DatabaseManager
   */
 
 
-  // create the item table
-  createItemTable(Database db) async
+  // create the inventory table
+  createInventoryTable(Database db) async
   {
     await db.execute("""
       
-    CREATE TABLE tbl_item(
+    CREATE TABLE tbl_inventory(
       name            TEXT,
       category        TEXT,
       purchase_date   TEXT,
@@ -70,24 +77,72 @@ class DatabaseManager
     """);
   }
 
-
-  // insert an item into table
-  insertItemIntoDB(String itemName, String itemCategory, DateTime purchaseDate, DateTime expDate) async
+  // create the item table
+  createItemsListTable(Database db) async
   {
-    String purchaseDateString = dateTimeToString(purchaseDate);
-    String expDateString = dateTimeToString(expDate);
+    await db.execute("""
+      
+    CREATE TABLE tbl_itemslist(
+      name            TEXT,
+      category        TEXT,
+      shelf_life      INTEGER,
+      id              INTEGER PRIMARY KEY
+    );
+      
+    """);
+  }
+
+
+  addJSONIntoItemsList(Database db) async
+  {
+    try
+    {
+      String jsonString = await rootBundle.loadString('data/items.json');
+      var data = jsonDecode(jsonString);
+
+      for (int i = 0; i < data.length; i++)
+      {
+        Item item = Item(data[i]['Name'], data[i]['Category'], data[i]['Shelf Life']);
+
+        await insertIntoListTable(item, db);
+      }
+    }
+    catch (e)
+    {
+      print('Error loading JSON: $e');
+    }
+  }
+
+  // insert an item into item list table
+  insertIntoListTable(Item item, Database db) async
+  {
 
     String xsql = """
-    INSERT INTO tbl_item(name,category,purchase_date,exp_date) VALUES
-      ('$itemName','$itemCategory','$purchaseDateString','$expDateString')
+    INSERT INTO tbl_itemslist(name,category,shelf_life) VALUES
+      ('${item.name}','${item.category}','${item.shelfLife}')
     """;
 
     await db.rawInsert(xsql);
   }
 
 
-  // print data to console
-  showData() async
+  // insert an item into inventory table
+  insertIntoInventoryTable(InventoryItem item) async
+  {
+    String purchaseDateString = dateTimeToString(item.purchaseDate);
+    String expDateString = dateTimeToString(item.expDate);
+
+    String xsql = """
+    INSERT INTO tbl_inventory(name,category,purchase_date,exp_date) VALUES
+      ('${item.name}','${item.category}','$purchaseDateString','$expDateString')
+    """;
+
+    await db.rawInsert(xsql);
+  }
+
+
+  // print inventory to console
+  showInventory() async
   {
     // when you do a select query in sqflite
     // it will return a list of mapped data(key, value)
@@ -95,29 +150,72 @@ class DatabaseManager
     // a position in the list. And each record is a Map(key, value)
     List<Map<String, dynamic>> myDataset;
 
-    myDataset = await getItemsInDB(); // put query results in a map
+    myDataset = await getItemsInInventory(); // put query results in a map
 
     // iterate through the map and print each item
     for(int i = 0; i < myDataset.length; i++)
     {
       print("${myDataset[i]['name']} ${myDataset[i]['category']} ${myDataset[i]['purchase_date']} ${myDataset[i]['exp_date']} ${myDataset[i]['id']}");
     }
+  }
+
+  // print inventory to console
+  showCategory(String category) async
+  {
+    // when you do a select query in sqflite
+    // it will return a list of mapped data(key, value)
+    // Think of it as each row of data is
+    // a position in the list. And each record is a Map(key, value)
+    List<Map<String, dynamic>> myDataset;
+
+    myDataset = await getItemsByCategory(category); // put query results in a map
+
+    // iterate through the map and print each item
+    // iterate through the map and print each item
+    for(int i = 0; i < myDataset.length; i++)
+    {
+      print("${myDataset[i]['name']} ${myDataset[i]['category']} ${myDataset[i]['shelf_life']} ${myDataset[i]['id']}");
+    }
+  }
+
+  // print items list to console
+  showItemsList() async
+  {
+    // when you do a select query in sqflite
+    // it will return a list of mapped data(key, value)
+    // Think of it as each row of data is
+    // a position in the list. And each record is a Map(key, value)
+    List<Map<String, dynamic>> myDataset;
+
+    myDataset = await getItemsInItemsList(); // put query results in a map
+
+    // iterate through the map and print each item
+    for(int i = 0; i < myDataset.length; i++)
+    {
+      print("${myDataset[i]['name']} ${myDataset[i]['category']} ${myDataset[i]['shelf_life']} ${myDataset[i]['id']}");
+    }
 
   }
 
-
-  // remove item from table
-  removeItem(int id) async
+  // remove item from inventory
+  removeItemFromInventory(int id) async
   {
-    String xsql = "DELETE FROM tbl_item WHERE id = $id";
+    String xsql = "DELETE FROM tbl_inventory WHERE id = $id";
     await db.execute(xsql);
   }
 
 
-  // clear the table
-  clearTable() async
+  // clear the inventory
+  clearInventory() async
   {
-    String xsql = "DELETE FROM tbl_item";
+    String xsql = "DELETE FROM tbl_inventory";
+    await db.execute(xsql);
+  }
+
+  // clear the items list
+  clearItemsList() async
+  {
+    String xsql = "DELETE FROM tbl_itemslist";
     await db.execute(xsql);
   }
 
@@ -126,7 +224,18 @@ class DatabaseManager
   String dateTimeToString(DateTime dt) => "${dt.year}-${dt.month}-${dt.day}";
 
   // get all items in table
-  Future getItemsInDB() async => db.rawQuery("SELECT * FROM tbl_item ORDER BY id ASC");
+  Future getItemsInInventory() async => db.rawQuery("SELECT * FROM tbl_inventory ORDER BY name ASC");
+
+  Future getItemsByCategory(String category) async
+  {
+    return db.rawQuery(
+        "SELECT * FROM tbl_itemslist "
+        "WHERE category LIKE '$category' "
+        "ORDER BY name ASC"
+    );
+  }
+
+  Future getItemsInItemsList() async => db.rawQuery("SELECT * FROM tbl_itemslist ORDER BY name ASC");
 
 
 }
