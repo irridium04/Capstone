@@ -127,10 +127,10 @@ class DatabaseManager
 
 
   // insert an item into inventory table
-  insertIntoInventoryTable(InventoryItem item) async
+  addItemToInventory(InventoryItem item) async
   {
-    String purchaseDateString = dateTimeToString(item.purchaseDate);
-    String expDateString = dateTimeToString(item.expDate);
+    String purchaseDateString = _dateTimeToString(item.purchaseDate);
+    String expDateString = _dateTimeToString(item.expDate);
 
     String xsql = """
     INSERT INTO tbl_inventory(name,category,purchase_date,exp_date) VALUES
@@ -141,22 +141,33 @@ class DatabaseManager
   }
 
 
-  // print inventory to console
-  showInventory() async
+  // get all the items in the inventory as a list of inventory item objects
+  Future<List<InventoryItem>>getInventory() async
   {
     // when you do a select query in sqflite
     // it will return a list of mapped data(key, value)
     // Think of it as each row of data is
     // a position in the list. And each record is a Map(key, value)
     List<Map<String, dynamic>> myDataset;
+    List<InventoryItem> items = <InventoryItem>[];
 
-    myDataset = await getItemsInInventory(); // put query results in a map
+    myDataset = await _getItemsInInventory(); // put query results in a map
 
     // iterate through the map and print each item
     for(int i = 0; i < myDataset.length; i++)
     {
-      print("${myDataset[i]['name']} ${myDataset[i]['category']} ${myDataset[i]['purchase_date']} ${myDataset[i]['exp_date']} ${myDataset[i]['id']}");
+      InventoryItem item = InventoryItem(
+          myDataset[i]['name'],
+          myDataset[i]['category'],
+          _stringToDateTime(myDataset[i]['purchase_date']),
+          _stringToDateTime(myDataset[i]['exp_date'])
+      );
+      items.add(item);
+
+      //print("Getting item: ${myDataset[i]['name']} ${myDataset[i]['category']} ${myDataset[i]['purchase_date']} ${myDataset[i]['exp_date']} ${myDataset[i]['id']}");
     }
+
+    return items;
   }
 
   // print inventory to console
@@ -168,7 +179,7 @@ class DatabaseManager
     // a position in the list. And each record is a Map(key, value)
     List<Map<String, dynamic>> myDataset;
 
-    myDataset = await getItemsByCategory(category); // put query results in a map
+    myDataset = await _getItemsByCategory(category); // put query results in a map
 
     // iterate through the map and print each item
     // iterate through the map and print each item
@@ -177,6 +188,7 @@ class DatabaseManager
       print("${myDataset[i]['name']} ${myDataset[i]['category']} ${myDataset[i]['shelf_life']} ${myDataset[i]['id']}");
     }
   }
+
 
   // print items list to console
   showItemsList() async
@@ -187,7 +199,7 @@ class DatabaseManager
     // a position in the list. And each record is a Map(key, value)
     List<Map<String, dynamic>> myDataset;
 
-    myDataset = await getItemsInItemsList(); // put query results in a map
+    myDataset = await _getItemsInItemsList(); // put query results in a map
 
     // iterate through the map and print each item
     for(int i = 0; i < myDataset.length; i++)
@@ -212,21 +224,25 @@ class DatabaseManager
     await db.execute(xsql);
   }
 
-  // clear the items list
-  clearItemsList() async
-  {
-    String xsql = "DELETE FROM tbl_itemslist";
-    await db.execute(xsql);
-  }
-
 
   // convert a date time value to a string of YYYY-MM-DD format
-  String dateTimeToString(DateTime dt) => "${dt.year}-${dt.month}-${dt.day}";
+  String _dateTimeToString(DateTime dt) => "${dt.year}-${dt.month}-${dt.day}";
+
+  // convert a string of YYYY-MM-DD format to datetime
+  DateTime _stringToDateTime(String s)
+  {
+    List<String> parts = s.split('-');
+    int year = int.parse(parts[0]);
+    int month = int.parse(parts[1]);
+    int day = int.parse(parts[2]);
+
+    return DateTime(year, month, day);
+  }
 
   // get all items in table
-  Future getItemsInInventory() async => db.rawQuery("SELECT * FROM tbl_inventory ORDER BY name ASC");
+  Future _getItemsInInventory() async => db.rawQuery("SELECT * FROM tbl_inventory ORDER BY name ASC");
 
-  Future getItemsByCategory(String category) async
+  Future _getItemsByCategory(String category) async
   {
     return db.rawQuery(
         "SELECT * FROM tbl_itemslist "
@@ -235,7 +251,7 @@ class DatabaseManager
     );
   }
 
-  Future getItemsInItemsList() async => db.rawQuery("SELECT * FROM tbl_itemslist ORDER BY name ASC");
+  Future _getItemsInItemsList() async => db.rawQuery("SELECT * FROM tbl_itemslist ORDER BY name ASC");
 
 
 }
