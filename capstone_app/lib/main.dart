@@ -1,20 +1,17 @@
 import 'dart:math';
 
-import 'package:capstone_app/scaffold.dart';
+import 'package:capstone_app/scaffolds.dart';
 import 'package:flutter/material.dart';
 
 // import other dart files
 import 'database_manager.dart';
 import 'item.dart';
 import 'inventoryItem.dart';
-import 'scaffold.dart';
+import 'scaffolds.dart';
 
 
 // main function
-void main()
-{
-  runApp(const MyApp());
-}
+void main() => runApp(const MyApp());
 
 
 class MyApp extends StatelessWidget
@@ -32,6 +29,13 @@ class MyApp extends StatelessWidget
         useMaterial3: true,
       ),
       home: const MyHomePage(title: 'My Pantry'),
+      debugShowCheckedModeBanner: false,
+      routes: <String, WidgetBuilder>
+      {
+        "/HomePage": (BuildContext context) => MyHomePage(title: 'My Pantry'),
+        "/ItemCategoryPage": (BuildContext context) => ItemCategoryPage(title: 'Add Item To Pantry'),
+        "/ItemAddPage": (BuildContext context) => ItemAddPage('Add Item To Pantry', "", Theme.of(context).colorScheme.inversePrimary),
+      }
     );
   }
 }
@@ -61,7 +65,7 @@ class _MyHomePageState extends State<MyHomePage>
   {
     await dbm.dbSetup(); // Await the asynchronous method
     dbm.clearInventory();
-    insertRandomData(200);
+    //insertRandomData(200);
   }
 
 
@@ -116,3 +120,72 @@ class _MyHomePageState extends State<MyHomePage>
 
 }
 
+class ItemCategoryPage extends StatefulWidget
+{
+  const ItemCategoryPage({super.key, required this.title});
+
+
+  final String title;
+
+  @override
+  State<ItemCategoryPage> createState() => _ItemCategoryPageState();
+}
+
+class _ItemCategoryPageState extends State<ItemCategoryPage>
+{
+  DatabaseManager dbm = DatabaseManager();
+
+  _ItemCategoryPageState()
+  {
+    initializeDatabase();
+  }
+
+  initializeDatabase() async
+  {
+    await dbm.dbSetup();
+  }
+
+  @override
+  Widget build(BuildContext context)
+  {
+    return itemCategoriesScaffold(context);
+  }
+}
+
+class ItemAddPage extends StatefulWidget
+{
+
+  final String title;
+  String category = "";
+  Color bannerColor;
+
+  ItemAddPage(this.title, this.category, this.bannerColor);
+
+  @override
+  State<ItemAddPage> createState() => _ItemAddPageState(category, bannerColor);
+
+
+}
+
+class _ItemAddPageState extends State<ItemAddPage>
+{
+  DatabaseManager dbm = DatabaseManager();
+  String category;
+  Color bannerColor;
+
+  _ItemAddPageState(this.category, this.bannerColor)
+  {
+    initializeDatabase();
+  }
+
+  initializeDatabase() async
+  {
+    await dbm.dbSetup();
+  }
+
+  @override
+  Widget build(BuildContext context)
+  {
+    return itemListScaffold(context, category, bannerColor);
+  }
+}

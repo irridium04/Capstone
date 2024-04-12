@@ -85,7 +85,7 @@ class _ItemTableState extends State<ItemTable>
     await dbm.dbSetup(); // Ensure that database is set up
 
     // get the items from db
-    List<Item> items = (itemCategorySearch.isEmpty) ?
+    List<Item> items = (itemCategorySearch == "All Items") ?
     await dbm.getAllItems() : await dbm.getItemsByCategory(itemCategorySearch);
 
     List<DataRow> rows = []; // list of data rows

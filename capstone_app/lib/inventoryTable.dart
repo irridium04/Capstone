@@ -173,6 +173,7 @@ class _InventoryTableState extends State<InventoryTable>
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: TextField(
+            ,
             controller: _searchController,
             onChanged: _searchData,
             decoration: InputDecoration(
