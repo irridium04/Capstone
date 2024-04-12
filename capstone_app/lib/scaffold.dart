@@ -1,10 +1,11 @@
 import 'package:capstone_app/database_manager.dart';
+import 'package:capstone_app/itemTable.dart';
 import 'package:flutter/material.dart';
 
 import 'inventoryTable.dart';
 import 'database_manager.dart';
 
-Scaffold myScaffold(BuildContext context)
+Scaffold inventoryScaffold(BuildContext context)
 {
   void addItem()
   {
@@ -21,11 +22,8 @@ Scaffold myScaffold(BuildContext context)
             )
         )
       ),
-      body: ListView(
-          children: [
-            InventoryTable()
-          ]
-      ),
+      body: InventoryTable(),
+
       floatingActionButton: FloatingActionButton.large(
         onPressed: addItem,
         tooltip: 'Add Item',

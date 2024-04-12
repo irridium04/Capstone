@@ -142,7 +142,7 @@ class DatabaseManager
 
 
   // get all the items in the inventory as a list of inventory item objects
-  Future<List<InventoryItem>>getInventory() async
+  Future<List<InventoryItem>> getInventory() async
   {
     // when you do a select query in sqflite
     // it will return a list of mapped data(key, value)
@@ -170,28 +170,33 @@ class DatabaseManager
     return items;
   }
 
-  // print inventory to console
-  showCategory(String category) async
+  // get items in category
+  Future<List<Item>> getItemsByCategory(String category) async
   {
     // when you do a select query in sqflite
     // it will return a list of mapped data(key, value)
     // Think of it as each row of data is
     // a position in the list. And each record is a Map(key, value)
     List<Map<String, dynamic>> myDataset;
+    List<Item> items = <Item>[];
 
     myDataset = await _getItemsByCategory(category); // put query results in a map
 
     // iterate through the map and print each item
-    // iterate through the map and print each item
-    for(int i = 0; i < myDataset.length; i++)
-    {
-      print("${myDataset[i]['name']} ${myDataset[i]['category']} ${myDataset[i]['shelf_life']} ${myDataset[i]['id']}");
+    for (int i = 0; i < myDataset.length; i++) {
+      Item item = Item(
+          myDataset[i]['name'],
+          myDataset[i]['category'],
+          myDataset[i]['shelf_life']
+      );
+      items.add(item);
     }
+
+    return items;
   }
 
-
-  // print items list to console
-  showItemsList() async
+  // gets the list of all items
+  Future<List<Item>> getAllItems() async
   {
     // when you do a select query in sqflite
     // it will return a list of mapped data(key, value)
@@ -199,13 +204,21 @@ class DatabaseManager
     // a position in the list. And each record is a Map(key, value)
     List<Map<String, dynamic>> myDataset;
 
+    List<Item> items = <Item>[];
+
     myDataset = await _getItemsInItemsList(); // put query results in a map
 
     // iterate through the map and print each item
-    for(int i = 0; i < myDataset.length; i++)
-    {
-      print("${myDataset[i]['name']} ${myDataset[i]['category']} ${myDataset[i]['shelf_life']} ${myDataset[i]['id']}");
+    for (int i = 0; i < myDataset.length; i++) {
+      Item item = Item(
+          myDataset[i]['name'],
+          myDataset[i]['category'],
+          myDataset[i]['shelf_life']
+      );
+      items.add(item);
     }
+
+    return items;
 
   }
 

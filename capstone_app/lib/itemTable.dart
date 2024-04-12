@@ -1,22 +1,30 @@
+import 'package:capstone_app/item.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-import 'inventoryItem.dart';
+import 'item.dart';
 import 'database_manager.dart';
 
-
-class InventoryTable extends StatefulWidget
+class ItemTable extends StatefulWidget
 {
-  const InventoryTable({super.key});
+
+  String _itemCategorySearch = "";
+
+
+  ItemTable(this._itemCategorySearch);
 
   @override
-  _InventoryTableState createState() => _InventoryTableState();
+  _ItemTableState createState() => _ItemTableState(_itemCategorySearch);
 }
 
-
-class _InventoryTableState extends State<InventoryTable>
+class _ItemTableState extends State<ItemTable>
 {
+  _ItemTableState(this.itemCategorySearch);
+
   List<DataRow> rows = []; // a list of rows of data
+
+  String itemCategorySearch = "";
+
   int _sortColumnIndex = 0; // the index of the column that the table is sorting by
   bool _sortAscending = true; // boolean to specify ascending or descending sorting order
 
@@ -75,17 +83,19 @@ class _InventoryTableState extends State<InventoryTable>
   {
     DatabaseManager dbm = DatabaseManager(); // database manager class
     await dbm.dbSetup(); // Ensure that database is set up
-    List<InventoryItem> items = await dbm.getInventory(); // get the items from db
+
+    // get the items from db
+    List<Item> items = (itemCategorySearch.isEmpty) ?
+    await dbm.getAllItems() : await dbm.getItemsByCategory(itemCategorySearch);
 
     List<DataRow> rows = []; // list of data rows
 
     // iterate through each item in the dataset
-    for (InventoryItem item in items)
+    for (Item item in items)
     {
       // make a text style to be used by the table cells
-      // text is red if the item is within two days of expiring
-      TextStyle rowTextStyle = TextStyle(
-          color: (_isWithinTwoDays(item.expDate)) ? Colors.red : Colors.black,
+      TextStyle rowTextStyle = const TextStyle(
+          color: Colors.black,
           fontWeight: FontWeight.bold
       );
 
@@ -93,9 +103,7 @@ class _InventoryTableState extends State<InventoryTable>
       DataRow row = DataRow(
         cells: <DataCell>[
           DataCell(Text(item.name, style: rowTextStyle)),
-          DataCell(Text(item.category, style: rowTextStyle)),
-          DataCell(Text(_formatDate(item.purchaseDate), style: rowTextStyle)),
-          DataCell(Text(_formatDate(item.expDate), style: rowTextStyle))
+          DataCell(Text(item.category, style: rowTextStyle))
         ],
       );
 
@@ -110,18 +118,6 @@ class _InventoryTableState extends State<InventoryTable>
 
     // return the rows list
     return rows;
-  }
-
-  // function to format datetime int YYYY-MM-DD format
-  String _formatDate(DateTime dt) => DateFormat('yyyy-MM-dd').format(dt);
-
-  // function to check if a datetime is less than 2 days away
-  bool _isWithinTwoDays(DateTime dt)
-  {
-    DateTime now = DateTime.now();
-    DateTime twoDaysFromNow = now.add(const Duration(days: 2));
-
-    return (dt.isBefore(twoDaysFromNow));
   }
 
   // function to sort table by column and if asc/desc
@@ -189,24 +185,24 @@ class _InventoryTableState extends State<InventoryTable>
           // add a loading circle if data is being fetched
           child: _isLoading ?
           const Center(
-            child: Column(
-              children: [
-                CircularProgressIndicator(),
-                Text(
-                  "Loading Pantry",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold
-                  ),
-                )
-              ],
-            )
+              child: Column(
+                children: [
+                  CircularProgressIndicator(),
+                  Text(
+                    "Loading Items",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold
+                    ),
+                  )
+                ],
+              )
           ) :
           // display text if rows are empty, otherwise display table
           rows.isEmpty ? const Center(
               child: Text(
-                "Your Pantry Is Empty!\n Press the '+' to add an item!",
+                "No Custom Items!\n Press the '+' to add an item!",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                     fontSize: 20,
@@ -222,9 +218,7 @@ class _InventoryTableState extends State<InventoryTable>
                 sortAscending: _sortAscending,
                 columns: <DataColumn>[
                   _dataColumn("Name", 0),
-                  _dataColumn("Category", 1),
-                  _dataColumn("Purchase Date", 2),
-                  _dataColumn("Exp Date", 3)
+                  _dataColumn("Category", 1)
                 ],
                 rows: _filteredRows(), // Use filtered rows
               ),
@@ -234,4 +228,6 @@ class _InventoryTableState extends State<InventoryTable>
       ],
     );
   }
+
+
 }
