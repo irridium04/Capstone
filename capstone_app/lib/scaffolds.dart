@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 
 import 'inventoryTable.dart';
 import 'database_manager.dart';
+import "item.dart";
 
 Scaffold inventoryScaffold(BuildContext context)
 {
@@ -118,7 +119,7 @@ Scaffold itemCategoriesScaffold(BuildContext context)
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => ItemAddPage("Custom Item", "Custom", Colors.cyan),
+                  builder: (context) => ItemAddPage("Custom Items", "Custom", Colors.cyan),
                 ),
               );
             },
@@ -157,7 +158,7 @@ Scaffold itemListScaffold(BuildContext context, String category, Color bannerCol
 
     floatingActionButton: FloatingActionButton.large(
       backgroundColor: bannerColor,
-        onPressed: () => Navigator.of(context).pushNamed("/ItemCategoryPage"),
+        onPressed: () => Navigator.of(context).pushNamed("/CustomItemPage"),
         tooltip: 'Add Item',
         shape: const CircleBorder(),
         child: const Icon(
@@ -181,3 +182,70 @@ Scaffold itemListScaffold(BuildContext context, String category, Color bannerCol
   );
 
 }
+
+Scaffold CustomItemsScaffold(BuildContext context)
+{
+  TextEditingController _itemNameTextController = TextEditingController();
+
+  return Scaffold(
+    appBar: AppBar(
+      backgroundColor: Colors.cyan,
+      title: const Text(
+        "Add A Custom Item",
+        style: TextStyle(
+        fontWeight: FontWeight.bold
+        )
+      )
+    ),
+    body: Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            "Enter Item Name",
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextField(
+              controller: _itemNameTextController,
+              decoration: InputDecoration(
+                labelText: 'Enter custom item name',
+                hintText: 'Enter custom item name...',
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+              ),
+            ),
+          ),
+          ElevatedButton(
+              onPressed: () async {
+                DatabaseManager dbm = DatabaseManager();
+                await dbm.dbSetup();
+
+                Item item = Item(_itemNameTextController.text, "Custom", 0);
+
+                dbm.insertIntoListTable(item, dbm.db);
+
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ItemAddPage("Custom Items", "Custom", Colors.cyan),
+                  ),
+                );
+
+              },
+              child: Text("Add Custom Item")
+          )
+
+        ],
+      )
+    )
+  );
+}
+
+
+

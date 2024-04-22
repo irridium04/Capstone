@@ -4,8 +4,9 @@ class InventoryItem
   String category;
   DateTime purchaseDate;
   DateTime expDate;
+  int id;
 
-  InventoryItem(this.name, this.category, this.purchaseDate, this.expDate);
+  InventoryItem(this.name, this.category, this.purchaseDate, this.expDate, this.id);
 
   printItem()
   {

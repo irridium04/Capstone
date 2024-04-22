@@ -255,6 +255,11 @@
     "Shelf Life": 21
   },
   {
+    "Name": "Cherries",
+    "Category": "Produce",
+    "Shelf Life": 7
+  },
+  {
     "Name": "Chicken (Frozen)",
     "Category": "Meat",
     "Shelf Life": 365
@@ -588,6 +593,11 @@
     "Name": "Kiwis",
     "Category": "Produce",
     "Shelf Life": 5
+  },
+  {
+    "Name": "Kombucha ",
+    "Category": "Pantry",
+    "Shelf Life": 180
   },
   {
     "Name": "Leftovers",

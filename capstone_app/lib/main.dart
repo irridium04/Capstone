@@ -35,6 +35,8 @@ class MyApp extends StatelessWidget
         "/HomePage": (BuildContext context) => MyHomePage(title: 'My Pantry'),
         "/ItemCategoryPage": (BuildContext context) => ItemCategoryPage(title: 'Add Item To Pantry'),
         "/ItemAddPage": (BuildContext context) => ItemAddPage('Add Item To Pantry', "", Theme.of(context).colorScheme.inversePrimary),
+        "/ItemOptionsPage": (BuildContext context) => ItemOptionsPage("", Item("", "", 0)),
+        "/CustomItemPage": (BuildContext context) => CustomItemPage(title: "")
       }
     );
   }
@@ -64,7 +66,7 @@ class _MyHomePageState extends State<MyHomePage>
   initializeDatabase() async
   {
     await dbm.dbSetup(); // Await the asynchronous method
-    dbm.clearInventory();
+    //dbm.clearInventory();
     //insertRandomData(200);
   }
 
@@ -89,14 +91,15 @@ class _MyHomePageState extends State<MyHomePage>
               Duration(
                   days: RNG.nextInt(365)
               )
-          )
+          ),
+        -1
       );
 
       //item.printItem();
 
       dbm.addItemToInventory(item);
 
-
+      Navigator.of(context).pushNamed("/HomePage");
 
     }
   }
@@ -187,5 +190,212 @@ class _ItemAddPageState extends State<ItemAddPage>
   Widget build(BuildContext context)
   {
     return itemListScaffold(context, category, bannerColor);
+  }
+}
+
+class ItemOptionsPage extends StatefulWidget
+{
+
+  final String title;
+  Item item;
+
+  ItemOptionsPage(this.title, this.item);
+
+  @override
+  State<ItemOptionsPage> createState() => _ItemOptionsPageState(item);
+
+
+}
+
+class _ItemOptionsPageState extends State<ItemOptionsPage>
+{
+  DatabaseManager dbm = DatabaseManager();
+  Item item;
+  static DateTime purchaseDate = DateTime.now();
+  static DateTime expDate = DateTime.now();
+
+
+
+  _ItemOptionsPageState(this.item)
+  {
+    dbm.dbSetup();
+  }
+
+  PurchaseDatePicker(BuildContext context) async
+  {
+    purchaseDate = (await showDatePicker(
+        context: context,
+        initialDate: DateTime.now(),
+        firstDate: DateTime(1970),
+        lastDate: DateTime.now()
+    ))!;
+
+    setState(() {
+    });
+  }
+
+  ExpDatePicker(BuildContext context) async
+  {
+    expDate = (await showDatePicker(
+        context: context,
+        initialDate: DateTime.now(),
+        firstDate: DateTime.now(),
+        lastDate: DateTime(2100)
+    ))!;
+
+    setState(() {
+    });
+  }
+
+  SetupDBEntry(Item item)
+  {
+
+
+    expDate = (item.shelfLife != 0) ? purchaseDate.add(Duration(days: item.shelfLife)) : expDate;
+
+    InventoryItem inventoryItem = InventoryItem(item.name, item.category, purchaseDate, expDate, -1);
+
+    inventoryItem.printItem();
+
+    dbm.addItemToInventory(inventoryItem);
+
+    Navigator.of(context).pushNamed("/HomePage");
+  }
+
+  // convert a string of YYYY-MM-DD format to datetime
+  DateTime _stringToDateTime(String s)
+  {
+    List<String> parts = s.split('/');
+    int month = int.parse(parts[0]);
+    int day = int.parse(parts[1]);
+    int year = int.parse(parts[2]);
+
+    return DateTime(year, month, day);
+  }
+
+  List<Widget> buildColumnChildren()
+  {
+    List<Widget> list = [];
+
+    list.add(
+    Text(
+      "Add ${item.name} to Pantry",
+      style: TextStyle(
+          fontWeight: FontWeight.bold,
+          fontSize: 40
+      ),
+    )
+    );
+
+    list.add(
+      ElevatedButton(
+        style: ElevatedButton.styleFrom(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10)
+        )
+      ),
+      onPressed: () {
+        setState(() {
+          PurchaseDatePicker(context);
+          });
+        },
+        child: Text("Enter Purchase / Opening Date")
+      )
+    );
+
+
+    if(item.shelfLife == 0) {
+      list.add(
+          ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10)
+                  )
+              ),
+              onPressed: () {
+                setState(() {
+                  ExpDatePicker(context);
+                });
+              },
+              child: Text("Enter Expiration Date On Package")
+          )
+      );
+    }
+
+
+    list.add(
+      ElevatedButton(
+        style: ElevatedButton.styleFrom(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10)
+        )
+        ),
+        onPressed: () {
+          setState(() {
+            SetupDBEntry(item);
+          });
+        },
+        child: Text("Add Item To Pantry")
+      )
+    );
+
+    return list;
+  }
+
+
+  @override
+  Widget build(BuildContext context)
+  {
+    return Scaffold(
+        appBar: AppBar(
+            backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+            title: Text(
+                item.name,
+                style: TextStyle(
+
+                    fontWeight: FontWeight.bold
+                )
+            )
+        ),
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: buildColumnChildren(),
+        )
+      )
+    );
+  }
+}
+
+
+class CustomItemPage extends StatefulWidget
+{
+  const CustomItemPage({super.key, required this.title});
+
+
+  final String title;
+
+  @override
+  State<CustomItemPage> createState() => _CustomItemPageState();
+}
+
+class _CustomItemPageState extends State<CustomItemPage>
+{
+  DatabaseManager dbm = DatabaseManager();
+
+  _CustomItemPageState()
+  {
+    initializeDatabase();
+  }
+
+  initializeDatabase() async
+  {
+    await dbm.dbSetup();
+  }
+
+  @override
+  Widget build(BuildContext context)
+  {
+    return CustomItemsScaffold(context);
   }
 }

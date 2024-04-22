@@ -11,7 +11,7 @@ import 'inventoryItem.dart';
 class DatabaseManager
 {
   static String dbname = "pantry.db"; // database name
-  static var db; // database variable
+  var db; // database variable
   var path; // path variable
 
 
@@ -160,7 +160,8 @@ class DatabaseManager
           myDataset[i]['name'],
           myDataset[i]['category'],
           _stringToDateTime(myDataset[i]['purchase_date']),
-          _stringToDateTime(myDataset[i]['exp_date'])
+          _stringToDateTime(myDataset[i]['exp_date']),
+          myDataset[i]['id']
       );
       items.add(item);
 

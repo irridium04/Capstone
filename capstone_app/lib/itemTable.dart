@@ -1,4 +1,5 @@
 import 'package:capstone_app/item.dart';
+import 'package:capstone_app/main.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -103,7 +104,21 @@ class _ItemTableState extends State<ItemTable>
       DataRow row = DataRow(
         cells: <DataCell>[
           DataCell(Text(item.name, style: rowTextStyle)),
-          DataCell(Text(item.category, style: rowTextStyle))
+          DataCell(Text(item.category, style: rowTextStyle)),
+          DataCell(
+            IconButton(
+              icon: Icon(Icons.add),
+              onPressed: ()
+              {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ItemOptionsPage(item.name, item),
+                  ),
+                );
+              },
+            )
+          )
         ],
       );
 
@@ -218,7 +233,8 @@ class _ItemTableState extends State<ItemTable>
                 sortAscending: _sortAscending,
                 columns: <DataColumn>[
                   _dataColumn("Name", 0),
-                  _dataColumn("Category", 1)
+                  _dataColumn("Category", 1),
+                  DataColumn(label: Text(""))
                 ],
                 rows: _filteredRows(), // Use filtered rows
               ),

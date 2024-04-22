@@ -25,6 +25,14 @@ class _InventoryTableState extends State<InventoryTable>
 
   bool _isLoading = false; // Indicates whether data is being fetched
 
+  DatabaseManager dbm = DatabaseManager();
+
+
+  _InventoryTableState()
+  {
+    dbm.dbSetup();
+  }
+
   @override
   void initState()
   {
@@ -89,13 +97,37 @@ class _InventoryTableState extends State<InventoryTable>
           fontWeight: FontWeight.bold
       );
 
+
       // make a row for each item
       DataRow row = DataRow(
         cells: <DataCell>[
           DataCell(Text(item.name, style: rowTextStyle)),
           DataCell(Text(item.category, style: rowTextStyle)),
           DataCell(Text(_formatDate(item.purchaseDate), style: rowTextStyle)),
-          DataCell(Text(_formatDate(item.expDate), style: rowTextStyle))
+          DataCell(Text(_formatDate(item.expDate), style: rowTextStyle)),
+          DataCell(
+            Row(
+              children: [
+                IconButton(
+                  icon: Icon(Icons.edit),
+                  onPressed: ()
+                  {
+                    // Implement your edit functionality here
+                    // You can navigate to a new screen or show a dialog to edit the item
+                    print('Edit button pressed for ${item.name}');
+                  },
+                ),
+                IconButton(
+                  icon: Icon(Icons.delete),
+                  onPressed: ()
+                  {
+                      dbm.removeItemFromInventory(item.id);
+                  },
+                )
+              ],
+            )
+
+          )
         ],
       );
 
@@ -173,7 +205,7 @@ class _InventoryTableState extends State<InventoryTable>
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: TextField(
-            ,
+
             controller: _searchController,
             onChanged: _searchData,
             decoration: InputDecoration(
@@ -225,7 +257,8 @@ class _InventoryTableState extends State<InventoryTable>
                   _dataColumn("Name", 0),
                   _dataColumn("Category", 1),
                   _dataColumn("Purchase Date", 2),
-                  _dataColumn("Exp Date", 3)
+                  _dataColumn("Exp Date", 3),
+                  const DataColumn(label: Text(""))
                 ],
                 rows: _filteredRows(), // Use filtered rows
               ),
