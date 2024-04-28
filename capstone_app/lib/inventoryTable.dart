@@ -109,19 +109,11 @@ class _InventoryTableState extends State<InventoryTable>
             Row(
               children: [
                 IconButton(
-                  icon: Icon(Icons.edit),
-                  onPressed: ()
-                  {
-                    // Implement your edit functionality here
-                    // You can navigate to a new screen or show a dialog to edit the item
-                    print('Edit button pressed for ${item.name}');
-                  },
-                ),
-                IconButton(
                   icon: Icon(Icons.delete),
                   onPressed: ()
                   {
-                      dbm.removeItemFromInventory(item.id);
+                    dbm.removeItemFromInventory(item.id);
+                    fetchData();
                   },
                 )
               ],

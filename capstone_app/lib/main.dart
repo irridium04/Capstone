@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:capstone_app/scaffolds.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 // import other dart files
 import 'database_manager.dart';
@@ -10,10 +11,28 @@ import 'inventoryItem.dart';
 import 'scaffolds.dart';
 
 
+
 // main function
 void main() => runApp(const MyApp());
 
+/*
+final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+FlutterLocalNotificationsPlugin();
 
+void main() async
+{
+
+  WidgetsFlutterBinding.ensureInitialized();
+  const InitializationSettings initializationSettings =
+  InitializationSettings(
+    android: AndroidInitializationSettings('ic_launcher'),
+  );
+
+  await flutterLocalNotificationsPlugin.initialize(initializationSettings);
+
+  runApp(const MyApp());
+}
+*/
 class MyApp extends StatelessWidget
 {
   const MyApp({super.key});
@@ -32,11 +51,11 @@ class MyApp extends StatelessWidget
       debugShowCheckedModeBanner: false,
       routes: <String, WidgetBuilder>
       {
-        "/HomePage": (BuildContext context) => MyHomePage(title: 'My Pantry'),
-        "/ItemCategoryPage": (BuildContext context) => ItemCategoryPage(title: 'Add Item To Pantry'),
+        "/HomePage": (BuildContext context) => const MyHomePage(title: 'My Pantry'),
+        "/ItemCategoryPage": (BuildContext context) => const ItemCategoryPage(title: 'Add Item To Pantry'),
         "/ItemAddPage": (BuildContext context) => ItemAddPage('Add Item To Pantry', "", Theme.of(context).colorScheme.inversePrimary),
         "/ItemOptionsPage": (BuildContext context) => ItemOptionsPage("", Item("", "", 0)),
-        "/CustomItemPage": (BuildContext context) => CustomItemPage(title: "")
+        "/CustomItemPage": (BuildContext context) => const CustomItemPage(title: "")
       }
     );
   }
@@ -212,9 +231,17 @@ class _ItemOptionsPageState extends State<ItemOptionsPage>
   DatabaseManager dbm = DatabaseManager();
   Item item;
   static DateTime purchaseDate = DateTime.now();
-  static DateTime expDate = DateTime.now();
+  static DateTime expDate = DateTime.now().add(Duration(days: 7));
 
+  String purchaseDateString = "${
+      purchaseDate.month.toString()}/"
+      "${purchaseDate.day.toString()}/"
+      "${purchaseDate.year.toString()}";
 
+  String expDateString = "${
+      expDate.month.toString()}/"
+      "${expDate.day.toString()}/"
+      "${expDate.year.toString()}";
 
   _ItemOptionsPageState(this.item)
   {
@@ -230,7 +257,13 @@ class _ItemOptionsPageState extends State<ItemOptionsPage>
         lastDate: DateTime.now()
     ))!;
 
-    setState(() {
+    setState(()
+    {
+      purchaseDateString = "${
+          purchaseDate.month.toString()}/"
+          "${purchaseDate.day.toString()}/"
+          "${purchaseDate.year.toString()}";
+
     });
   }
 
@@ -238,19 +271,22 @@ class _ItemOptionsPageState extends State<ItemOptionsPage>
   {
     expDate = (await showDatePicker(
         context: context,
-        initialDate: DateTime.now(),
+        initialDate: DateTime.now().add(Duration(days: 7)),
         firstDate: DateTime.now(),
         lastDate: DateTime(2100)
     ))!;
 
-    setState(() {
+    setState(()
+    {
+      expDateString = "${
+          expDate.month.toString()}/"
+          "${expDate.day.toString()}/"
+          "${expDate.year.toString()}";
     });
   }
 
   SetupDBEntry(Item item)
   {
-
-
     expDate = (item.shelfLife != 0) ? purchaseDate.add(Duration(days: item.shelfLife)) : expDate;
 
     InventoryItem inventoryItem = InventoryItem(item.name, item.category, purchaseDate, expDate, -1);
@@ -280,7 +316,7 @@ class _ItemOptionsPageState extends State<ItemOptionsPage>
     list.add(
     Text(
       "Add ${item.name} to Pantry",
-      style: TextStyle(
+      style: const TextStyle(
           fontWeight: FontWeight.bold,
           fontSize: 40
       ),
@@ -299,7 +335,7 @@ class _ItemOptionsPageState extends State<ItemOptionsPage>
           PurchaseDatePicker(context);
           });
         },
-        child: Text("Enter Purchase / Opening Date")
+        child: Text("Enter Purchase / Opening Date ($purchaseDateString)")
       )
     );
 
@@ -317,7 +353,7 @@ class _ItemOptionsPageState extends State<ItemOptionsPage>
                   ExpDatePicker(context);
                 });
               },
-              child: Text("Enter Expiration Date On Package")
+              child: Text("Enter Expiration Date On Package ($expDateString)")
           )
       );
     }
@@ -335,7 +371,7 @@ class _ItemOptionsPageState extends State<ItemOptionsPage>
             SetupDBEntry(item);
           });
         },
-        child: Text("Add Item To Pantry")
+        child: const Text("Add Item To Pantry")
       )
     );
 
@@ -351,7 +387,7 @@ class _ItemOptionsPageState extends State<ItemOptionsPage>
             backgroundColor: Theme.of(context).colorScheme.inversePrimary,
             title: Text(
                 item.name,
-                style: TextStyle(
+                style: const TextStyle(
 
                     fontWeight: FontWeight.bold
                 )

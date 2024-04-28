@@ -230,7 +230,6 @@ class DatabaseManager
     await db.execute(xsql);
   }
 
-
   // clear the inventory
   clearInventory() async
   {
