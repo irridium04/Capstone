@@ -1,3 +1,4 @@
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:capstone_app/database_manager.dart';
 import 'package:capstone_app/itemTable.dart';
 import 'package:capstone_app/main.dart';
@@ -23,7 +24,18 @@ Scaffold inventoryScaffold(BuildContext context)
       body: InventoryTable(),
 
       floatingActionButton: FloatingActionButton.large(
-        onPressed: () => Navigator.of(context).pushNamed("/ItemCategoryPage"),
+        onPressed: () {
+          AwesomeNotifications().createNotification(
+            content: NotificationContent(
+              id: 1,
+              channelKey: "my_channel",
+              title: "Test Notification",
+              body: "hello world",
+            ),
+
+          );
+          Navigator.of(context).pushNamed("/ItemCategoryPage");
+        },
         tooltip: 'Add Item',
         shape: const CircleBorder(),
         child: const Icon(

@@ -2,40 +2,70 @@ import 'dart:math';
 
 import 'package:capstone_app/scaffolds.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:awesome_notifications/awesome_notifications.dart';
 
 // import other dart files
 import 'database_manager.dart';
 import 'item.dart';
 import 'inventoryItem.dart';
 import 'scaffolds.dart';
+import 'notification_manager.dart';
 
 
 
 // main function
-void main() => runApp(const MyApp());
-
-/*
-final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-FlutterLocalNotificationsPlugin();
+//void main() => runApp(const MyApp());
 
 void main() async
 {
+  await AwesomeNotifications().initialize(
+    null,
+    [
+      NotificationChannel(
+        channelGroupKey: "my_channel_group",
+        channelKey: "my_channel",
+        channelName: "Notification Channel",
+        channelDescription: "My Notification Channel")
+    ],
 
-  WidgetsFlutterBinding.ensureInitialized();
-  const InitializationSettings initializationSettings =
-  InitializationSettings(
-    android: AndroidInitializationSettings('ic_launcher'),
+    channelGroups: [
+      NotificationChannelGroup(
+          channelGroupKey: "my_channel_group",
+          channelGroupName: "Notification Group")
+    ]
   );
 
-  await flutterLocalNotificationsPlugin.initialize(initializationSettings);
+  bool isAllowedNotification = await AwesomeNotifications().isNotificationAllowed();
+
+  if(!isAllowedNotification)
+  {
+    AwesomeNotifications().requestPermissionToSendNotifications();
+  }
 
   runApp(const MyApp());
 }
-*/
-class MyApp extends StatelessWidget
-{
+
+
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp>
+{
+  @override
+  void initState() {
+    AwesomeNotifications().setListeners(
+      onActionReceivedMethod: NotificationManager.onActionReceivedMethod,
+      onDismissActionReceivedMethod: NotificationManager.onDismissActionReceivedMethod,
+      onNotificationCreatedMethod: NotificationManager.onNotificationCreatedMethod,
+      onNotificationDisplayedMethod: NotificationManager.onNotificationDisplayedMethod
+    );
+
+    super.initState();
+  }
+
 
   // This widget is the root of your application.
   @override
@@ -80,6 +110,8 @@ class _MyHomePageState extends State<MyHomePage>
   {
     initializeDatabase();
   }
+
+
 
 
   initializeDatabase() async

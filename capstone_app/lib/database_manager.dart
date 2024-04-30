@@ -1,3 +1,4 @@
+import 'package:capstone_app/notification_manager.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 import 'dart:io';
@@ -21,14 +22,11 @@ class DatabaseManager
     // get databases dath
     var databasesPath = await getDatabasesPath();
 
+
     // join the database to the path
     path = join(databasesPath, dbname);
 
-    // db exists
-    if(await File(path).exists())
-    {
-      print("DB exists");
-    }
+
 
     // open the database
     db = await openDatabase(
@@ -132,6 +130,7 @@ class DatabaseManager
     String purchaseDateString = _dateTimeToString(item.purchaseDate);
     String expDateString = _dateTimeToString(item.expDate);
 
+
     String xsql = """
     INSERT INTO tbl_inventory(name,category,purchase_date,exp_date) VALUES
       ('${item.name}','${item.category}','$purchaseDateString','$expDateString')
@@ -227,6 +226,7 @@ class DatabaseManager
   removeItemFromInventory(int id) async
   {
     String xsql = "DELETE FROM tbl_inventory WHERE id = $id";
+
     await db.execute(xsql);
   }
 
