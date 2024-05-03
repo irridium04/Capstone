@@ -1,3 +1,5 @@
+
+
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 
@@ -30,4 +32,25 @@ class NotificationManager
   {
 
   }
+
+  createNotification(int id, String itemName, DateTime scheduleTime) async
+  {
+    await AwesomeNotifications().createNotification(
+        content: NotificationContent(
+          id: id,
+          channelKey: 'my_channel',
+          title: 'Expiration Reminder!',
+          body: 'Your $itemName is expiring soon! Consider using it!',
+          wakeUpScreen: true,
+          category: NotificationCategory.Reminder,
+          autoDismissible: false,
+        ),
+        schedule: NotificationCalendar.fromDate(
+          date: scheduleTime,
+          preciseAlarm: true,
+          allowWhileIdle: true
+        ));
+  }
+
+  cancelNotification(int id) async => await AwesomeNotifications().cancel(id);
 }

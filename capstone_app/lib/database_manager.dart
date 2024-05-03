@@ -136,7 +136,13 @@ class DatabaseManager
       ('${item.name}','${item.category}','$purchaseDateString','$expDateString')
     """;
 
-    await db.rawInsert(xsql);
+    int itemId = await db.rawInsert(xsql);
+
+    await NotificationManager().createNotification(
+        itemId,
+        item.name,
+        item.expDate.subtract(const Duration(days: 2))
+    );
   }
 
 
@@ -225,9 +231,13 @@ class DatabaseManager
   // remove item from inventory
   removeItemFromInventory(int id) async
   {
+    // deletion SQL query
     String xsql = "DELETE FROM tbl_inventory WHERE id = $id";
 
-    await db.execute(xsql);
+    // remove the expiration notification
+    await NotificationManager().cancelNotification(id);
+
+    await db.execute(xsql); // execute the sql query
   }
 
   // clear the inventory
@@ -263,6 +273,8 @@ class DatabaseManager
         "ORDER BY name ASC"
     );
   }
+
+  Future _getIdFromItemName(String name) async => db.rawQuery("SELECT id FROM tbl_inventory WHERE name LIKE '$name'");
 
   Future _getItemsInItemsList() async => db.rawQuery("SELECT * FROM tbl_itemslist ORDER BY name ASC");
 
