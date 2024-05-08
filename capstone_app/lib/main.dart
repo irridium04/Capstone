@@ -8,19 +8,17 @@ import 'package:awesome_notifications/awesome_notifications.dart';
 import 'database_manager.dart';
 import 'item.dart';
 import 'inventoryItem.dart';
-import 'scaffolds.dart';
 import 'notification_manager.dart';
 
 
 
-// main function
-//void main() => runApp(const MyApp());
 
 void main() async
 {
   await AwesomeNotifications().initialize(
-    null,
+    null, // default flutter icon
     [
+      // create a notification channel for sending notifications
       NotificationChannel(
         channelGroupKey: "my_channel_group",
         channelKey: "my_channel",
@@ -28,6 +26,7 @@ void main() async
         channelDescription: "My Notification Channel")
     ],
 
+    // create a notification channel group
     channelGroups: [
       NotificationChannelGroup(
           channelGroupKey: "my_channel_group",
@@ -35,18 +34,22 @@ void main() async
     ]
   );
 
+  // check if notifications are allowed by the user
   bool isAllowedNotification = await AwesomeNotifications().isNotificationAllowed();
 
+  // prompt the user to enable notifications if they aren't enabled
   if(!isAllowedNotification)
   {
     AwesomeNotifications().requestPermissionToSendNotifications();
   }
 
+  // run the app
   runApp(const MyApp());
 }
 
 
-class MyApp extends StatefulWidget {
+class MyApp extends StatefulWidget
+{
   const MyApp({super.key});
 
   State<MyApp> createState() => _MyAppState();
@@ -54,6 +57,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp>
 {
+  // set the listener functions for different notification events when app is initialized
   @override
   void initState() {
     AwesomeNotifications().setListeners(
@@ -67,19 +71,20 @@ class _MyAppState extends State<MyApp>
   }
 
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context)
   {
     return MaterialApp(
-      title: 'Pantry Tracker App',
+      title: 'Pantry Tracker App', // the app name
+
+        // sets the app theme color to red
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.red),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'My Pantry'),
-      debugShowCheckedModeBanner: false,
-      routes: <String, WidgetBuilder>
+      home: const MyHomePage(title: 'My Pantry'), // define the homepage route
+      debugShowCheckedModeBanner: false, // disable the debug banner in the corner
+      routes: <String, WidgetBuilder> // define the routes of the app
       {
         "/HomePage": (BuildContext context) => const MyHomePage(title: 'My Pantry'),
         "/ItemCategoryPage": (BuildContext context) => const ItemCategoryPage(title: 'Add Item To Pantry'),
@@ -104,6 +109,7 @@ class MyHomePage extends StatefulWidget
 
 class _MyHomePageState extends State<MyHomePage>
 {
+  // create a reference to the database manager
   DatabaseManager dbm = DatabaseManager();
 
   _MyHomePageState()
@@ -112,65 +118,12 @@ class _MyHomePageState extends State<MyHomePage>
   }
 
 
+  // setup the database
+  initializeDatabase() async => await dbm.dbSetup();
 
-
-  initializeDatabase() async
-  {
-    await dbm.dbSetup(); // Await the asynchronous method
-    //dbm.clearInventory();
-    //insertRandomData(200);
-  }
-
-
-
-  // function to populate test data into db
-  insertRandomData(int amountToInsert)
-  {
-    for(int i = 0; i < amountToInsert; i++)
-    {
-      Random RNG = Random();
-
-      InventoryItem item = InventoryItem(
-          "test$i",
-          "testCategory$i",
-          DateTime.now().subtract(
-              Duration(
-                  days: RNG.nextInt(30)
-              )
-          ),
-          DateTime.now().add(
-              Duration(
-                  days: RNG.nextInt(365)
-              )
-          ),
-        -1
-      );
-
-      //item.printItem();
-
-      dbm.addItemToInventory(item);
-
-      Navigator.of(context).pushNamed("/HomePage");
-
-    }
-  }
-
-  printInventory() async
-  {
-    List<InventoryItem> items = await dbm.getInventory();
-
-    for(InventoryItem item in items)
-    {
-      item.printItem();
-    }
-  }
-
-
+  // display the inventory list scaffold
   @override
-  Widget build(BuildContext context)
-  {
-    return inventoryScaffold(context);
-  }
+  Widget build(BuildContext context) => inventoryScaffold(context);
 
 }
 
@@ -194,16 +147,10 @@ class _ItemCategoryPageState extends State<ItemCategoryPage>
     initializeDatabase();
   }
 
-  initializeDatabase() async
-  {
-    await dbm.dbSetup();
-  }
+  initializeDatabase() async => await dbm.dbSetup();
 
   @override
-  Widget build(BuildContext context)
-  {
-    return itemCategoriesScaffold(context);
-  }
+  Widget build(BuildContext context) => itemCategoriesScaffold(context);
 }
 
 class ItemAddPage extends StatefulWidget
@@ -213,7 +160,7 @@ class ItemAddPage extends StatefulWidget
   String category = "";
   Color bannerColor;
 
-  ItemAddPage(this.title, this.category, this.bannerColor);
+  ItemAddPage(this.title, this.category, this.bannerColor, {super.key});
 
   @override
   State<ItemAddPage> createState() => _ItemAddPageState(category, bannerColor);
@@ -232,16 +179,10 @@ class _ItemAddPageState extends State<ItemAddPage>
     initializeDatabase();
   }
 
-  initializeDatabase() async
-  {
-    await dbm.dbSetup();
-  }
+  initializeDatabase() async => await dbm.dbSetup();
 
   @override
-  Widget build(BuildContext context)
-  {
-    return itemListScaffold(context, category, bannerColor);
-  }
+  Widget build(BuildContext context) => itemListScaffold(context, category, bannerColor);
 }
 
 class ItemOptionsPage extends StatefulWidget
@@ -250,26 +191,28 @@ class ItemOptionsPage extends StatefulWidget
   final String title;
   Item item;
 
-  ItemOptionsPage(this.title, this.item);
+  ItemOptionsPage(this.title, this.item, {super.key});
 
   @override
   State<ItemOptionsPage> createState() => _ItemOptionsPageState(item);
-
 
 }
 
 class _ItemOptionsPageState extends State<ItemOptionsPage>
 {
-  DatabaseManager dbm = DatabaseManager();
-  Item item;
-  static DateTime purchaseDate = DateTime.now();
-  static DateTime expDate = DateTime.now().add(Duration(days: 7));
 
+  DatabaseManager dbm = DatabaseManager(); // database manager
+  Item item; // the item selected
+  static DateTime purchaseDate = DateTime.now(); // the current date
+  static DateTime expDate = DateTime.now().add(const Duration(days: 30)); // 30 days after current date
+
+  // convert date to MM/DD/YYYY string format
   String purchaseDateString = "${
       purchaseDate.month.toString()}/"
       "${purchaseDate.day.toString()}/"
       "${purchaseDate.year.toString()}";
 
+  // convert date to MM/DD/YYYY string format
   String expDateString = "${
       expDate.month.toString()}/"
       "${expDate.day.toString()}/"
@@ -277,10 +220,11 @@ class _ItemOptionsPageState extends State<ItemOptionsPage>
 
   _ItemOptionsPageState(this.item)
   {
-    dbm.dbSetup();
+    dbm.dbSetup(); // setup database in constructor
   }
 
-  PurchaseDatePicker(BuildContext context) async
+  // date picker widget for purchase date
+  purchaseDatePicker(BuildContext context) async
   {
     purchaseDate = (await showDatePicker(
         context: context,
@@ -289,6 +233,7 @@ class _ItemOptionsPageState extends State<ItemOptionsPage>
         lastDate: DateTime.now()
     ))!;
 
+    // update purchase date string when new date clicked
     setState(()
     {
       purchaseDateString = "${
@@ -299,15 +244,17 @@ class _ItemOptionsPageState extends State<ItemOptionsPage>
     });
   }
 
-  ExpDatePicker(BuildContext context) async
+  // date picker widget for expiration date
+  expDatePicker(BuildContext context) async
   {
     expDate = (await showDatePicker(
         context: context,
-        initialDate: DateTime.now().add(Duration(days: 7)),
+        initialDate: DateTime.now().add(const Duration(days: 30)),
         firstDate: DateTime.now(),
         lastDate: DateTime(2100)
     ))!;
 
+    // update expiration date string when new date clicked
     setState(()
     {
       expDateString = "${
@@ -317,17 +264,20 @@ class _ItemOptionsPageState extends State<ItemOptionsPage>
     });
   }
 
-  SetupDBEntry(Item item)
+  // setup the item to enter into the database
+  setupDBEntry(Item item)
   {
+    // automatically calculates the exp date if the item has a specified shelf life,
+    // an item has a specified shelf life if the number is not 0,
+    // otherwise use the exp date from the user
     expDate = (item.shelfLife != 0) ? purchaseDate.add(Duration(days: item.shelfLife)) : expDate;
 
+    // create an inventory item, requires -1 as a placeholder id
     InventoryItem inventoryItem = InventoryItem(item.name, item.category, purchaseDate, expDate, -1);
 
-    inventoryItem.printItem();
+    dbm.addItemToInventory(inventoryItem); // add the item to the inventory
 
-    dbm.addItemToInventory(inventoryItem);
-
-    Navigator.of(context).pushNamed("/HomePage");
+    Navigator.of(context).pushNamed("/HomePage"); // navigate back to homepage
   }
 
   // convert a string of YYYY-MM-DD format to datetime
@@ -341,10 +291,12 @@ class _ItemOptionsPageState extends State<ItemOptionsPage>
     return DateTime(year, month, day);
   }
 
+  // builds the menu for adding an item to the database
   List<Widget> buildColumnChildren()
   {
     List<Widget> list = [];
 
+    // title text
     list.add(
     Text(
       "Add ${item.name} to Pantry",
@@ -355,6 +307,7 @@ class _ItemOptionsPageState extends State<ItemOptionsPage>
     )
     );
 
+    // purchase date picker
     list.add(
       ElevatedButton(
         style: ElevatedButton.styleFrom(
@@ -364,14 +317,14 @@ class _ItemOptionsPageState extends State<ItemOptionsPage>
       ),
       onPressed: () {
         setState(() {
-          PurchaseDatePicker(context);
+          purchaseDatePicker(context);
           });
         },
         child: Text("Enter Purchase / Opening Date ($purchaseDateString)")
       )
     );
 
-
+    // only add exp date picker if the item does not have a preset shelf life
     if(item.shelfLife == 0) {
       list.add(
           ElevatedButton(
@@ -382,7 +335,7 @@ class _ItemOptionsPageState extends State<ItemOptionsPage>
               ),
               onPressed: () {
                 setState(() {
-                  ExpDatePicker(context);
+                  expDatePicker(context);
                 });
               },
               child: Text("Enter Expiration Date On Package ($expDateString)")
@@ -390,7 +343,7 @@ class _ItemOptionsPageState extends State<ItemOptionsPage>
       );
     }
 
-
+    // add item button
     list.add(
       ElevatedButton(
         style: ElevatedButton.styleFrom(
@@ -400,7 +353,7 @@ class _ItemOptionsPageState extends State<ItemOptionsPage>
         ),
         onPressed: () {
           setState(() {
-            SetupDBEntry(item);
+            setupDBEntry(item);
           });
         },
         child: const Text("Add Item To Pantry")
@@ -419,10 +372,7 @@ class _ItemOptionsPageState extends State<ItemOptionsPage>
             backgroundColor: Theme.of(context).colorScheme.inversePrimary,
             title: Text(
                 item.name,
-                style: const TextStyle(
-
-                    fontWeight: FontWeight.bold
-                )
+                style: const TextStyle(fontWeight: FontWeight.bold)
             )
         ),
         body: Center(
@@ -456,14 +406,8 @@ class _CustomItemPageState extends State<CustomItemPage>
     initializeDatabase();
   }
 
-  initializeDatabase() async
-  {
-    await dbm.dbSetup();
-  }
+  initializeDatabase() async => await dbm.dbSetup();
 
   @override
-  Widget build(BuildContext context)
-  {
-    return CustomItemsScaffold(context);
-  }
+  Widget build(BuildContext context) => CustomItemsScaffold(context);
 }

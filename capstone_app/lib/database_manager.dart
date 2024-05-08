@@ -1,7 +1,6 @@
 import 'package:capstone_app/notification_manager.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
-import 'dart:io';
 import 'dart:convert';
 import 'package:flutter/services.dart' show rootBundle;
 
@@ -262,9 +261,10 @@ class DatabaseManager
     return DateTime(year, month, day);
   }
 
-  // get all items in table
+  // get all items in inventory
   Future _getItemsInInventory() async => db.rawQuery("SELECT * FROM tbl_inventory ORDER BY name ASC");
 
+  // get all items in a certain category
   Future _getItemsByCategory(String category) async
   {
     return db.rawQuery(
@@ -274,8 +274,7 @@ class DatabaseManager
     );
   }
 
-  Future _getIdFromItemName(String name) async => db.rawQuery("SELECT id FROM tbl_inventory WHERE name LIKE '$name'");
-
+  // get all items
   Future _getItemsInItemsList() async => db.rawQuery("SELECT * FROM tbl_itemslist ORDER BY name ASC");
 
 

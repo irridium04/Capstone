@@ -1,19 +1,14 @@
-import 'dart:math';
-
-import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:capstone_app/database_manager.dart';
 import 'package:capstone_app/itemTable.dart';
 import 'package:capstone_app/main.dart';
-import 'package:capstone_app/notification_manager.dart';
 import 'package:flutter/material.dart';
 
 import 'inventoryTable.dart';
-import 'database_manager.dart';
 import "item.dart";
 
+// the scaffold for the inventory list
 Scaffold inventoryScaffold(BuildContext context)
 {
-
   return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -26,6 +21,7 @@ Scaffold inventoryScaffold(BuildContext context)
       ),
       body: InventoryTable(),
 
+      // add item button
       floatingActionButton: FloatingActionButton.large(
         onPressed: () async
         {
@@ -41,6 +37,7 @@ Scaffold inventoryScaffold(BuildContext context)
   );
 }
 
+// item categories page
 Scaffold itemCategoriesScaffold(BuildContext context)
 {
   TextStyle cardTextStyle()
@@ -148,6 +145,8 @@ Scaffold itemCategoriesScaffold(BuildContext context)
   );
 }
 
+
+// the scaffold for displaying the list of items that user can add
 Scaffold itemListScaffold(BuildContext context, String category, Color bannerColor)
 {
   // return scaffold with add button only if category is custom
